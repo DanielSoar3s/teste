@@ -372,20 +372,105 @@ app.post('/finalpageTwo', (req, res) => {
   let noteTwo = parseFloat(req.body.noteTwo);
   let noteThree = parseFloat(req.body.noteThree);
 
-  
-  let noteWeightOne = noteWeightOne * parseFloat(req.body.noteWeightOne);
-  let noteWeightTwo = noteWeightTwo * parseFloat(req.body.noteWeightTwo);
-  let noteWeightThree = noteWeightThree * parseFloat(req.body.noteWeightThree);
+  let noteWeightOne = 0;
+  let noteWeightTwo = 0;
+  let noteWeightThree = 0;
 
-  let average = ((noteOne + noteTwo + noteThree) / (noteWeightOne + noteWeightTwo + noteWeightThree)).toFixed(1);
+  noteWeightOne = parseFloat(req.body.noteWeightOne);
+  noteWeightTwo = parseFloat(req.body.noteWeightTwo);
+  noteWeightThree = parseFloat(req.body.noteWeightThree);
 
-  if (average >= 7) {
-      res.send(`Média: ${average}, você está aprovado.`)
+
+  let average = ((noteOne*noteWeightOne) + (noteTwo*noteWeightTwo) + (noteThree*noteWeightThree)) / (noteWeightOne + noteWeightTwo + noteWeightThree);
+
+  if (average < 4) {
+      res.send(`<!DOCTYPE html>
+      <html lang="en">
+      <head>
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Resultado</title>
+        <style>
+         body {
+          background-color: #e6ecf0;
+          font-family: Arial, Helvetica, sans-serif;  
+         }
+      
+        h1 {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 60px;
+        }
+      
+        </style>
+      </head>
+      <body>
+        <h1>Sua Média é ${average}, você está reprovado</h1>
+      </body>
+      </html>`)
   }
-  if (average < 7 || average >= 4) {
-      res.send(`Média: ${average}, prova final`)
+  if (average >= 4 && average < 7) {
+      res.send(`<!DOCTYPE html>
+      <html lang="en">
+      <head>
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Resultado</title>
+        <style>
+         body {
+          background-color: #e6ecf0;
+          font-family: Arial, Helvetica, sans-serif;  
+         }
+      
+        h1 {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 60px;
+        }
+      
+        </style>
+      </head>
+      <body>
+        <h1>Sua Média é ${average}, você de prova final</h1>
+      </body>
+      </html>`)
   } else {
-      res.send(`Média: ${average}`)
+      res.send(`<!DOCTYPE html>
+      <html lang="en">
+      <head>
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Resultado</title>
+        <style>
+         body {
+          background-color: #e6ecf0;
+          font-family: Arial, Helvetica, sans-serif;  
+         }
+      
+        h1 {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 60px;
+        }
+      
+        </style>
+      </head>
+      <body>
+        <h1>Sua Média é ${average}, você está aprovado</h1>
+      </body>
+      </html>`)
   }
 
 });
